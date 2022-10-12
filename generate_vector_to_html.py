@@ -1,5 +1,5 @@
-# this file is to open the csv file to fetch the weblink of the cdna clones
-# and then use the cdna clone info to make our vector sequence info
+# this file is to open the csv file to fetch the weblink of the cDNA clones
+# and then use the cDNA clone info to make our vector sequence info
 
 import requests
 import pandas as pd
@@ -44,6 +44,7 @@ GGCCGC<span style='color:black;mso-color-alt:windowtext;background:#FABF8F;mso-s
 accent6;mso-shading-themetint:153'>GACTACAAGGATGACGATGACAAGGATTACAAAGACGACGATGATAAGGACTATAAGGATGATGACGACAAA</span>TAATAG<span style='background:lime;mso-highlight:lime'>GAATTC</span>GCCAGCACAGTGGTCGAC</div></span></p>
 '''
 
+
 with open("gene_vector_info.html", 'w') as html_file:
     html_file.write(head_html)
 
@@ -74,9 +75,10 @@ MR201714	1-A-6	Tmem140	558
 '''
 # print(gene_file.Well)
 for ind in gene_file.index:
-    # print(gene_file['Well'][ind], gene_file['symbol'][ind], gene_file['Length'][ind], gene_file['url'][ind])
+
     #   construct the gene information and vector name
     cDNA_name = gene_file['Well'][ind].replace("-", "") + "-" + gene_file['symbol'][ind] + "-3XFLAG"    #1A1-Apln-3XFLAG
+    #   construct the newly cloned pBabe vector name as pBabe name
     pBabe_name = gene_file['symbol'][ind] + "-3XFLAG vector"
     # print(cDNA_name)
 
@@ -90,10 +92,9 @@ for ind in gene_file.index:
 
     data = content.find_all('span', attrs={'class': 'origene-sequence-blue'})
     gene_seq = "<br>".join(data[1].text.splitlines())
-    # print(gene_seq)
-    #   print(type(data))
-    #   bs4.element.ResultSet
-    # print(data[1].text)
+    #   print(gene_seq)
+
+    #   write the information in to html file
     with open("gene_vector_info.html", 'a') as html_file:
         html_file.write(f"<h1>{cDNA_name}&nbsp;-&nbsp;{gene_file['Length'][ind]}&nbsp;bp</h1>")
         html_file.write(f"<h2>{gene_file['Well'][ind]} Origene clone</h2>")
@@ -111,21 +112,4 @@ for ind in gene_file.index:
 
 with open("gene_vector_info.html", 'a') as html_file:
     html_file.write(end_html)
-
-
-
-
-
-
-
-
-# print(gene_file.url[0])
-
-# res = requests.get(gene_file.url[0])
-# print(res)
-# print(res.text)
-
-
-
-#   print(content.title.string)
-#   Apln (NM_013912) Mouse Tagged ORF Clone – MR200116 | OriGene
+    html_file.close()

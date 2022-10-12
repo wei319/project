@@ -11,6 +11,6 @@ pip install beautifulsoup4
 
 ## Script description
 
-The python script `generate_vector_to_html.py` will generate a html file to display the vector sequences of each gene for both cDNA and viral expression vectors.
+The python script `generate_vector_to_html.py` will read csv file from folder `source_data` and generate a html file to display the vector sequences of each gene for both cDNA and viral expression vectors.
 
 ![](https://github.com/wei319/project/blob/59768cee0e452fbf8ff8d9c51a5ed6c2732d4ba6/template.png)
